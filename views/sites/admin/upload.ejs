@@ -1,0 +1,43 @@
+<script src="/dist/selectOptions.js" defer></script>
+<form class="upload-form bg-white rounded-md p-12" action="/upload-item" method="POST" enctype="multipart/form-data">
+    <input type="text" name="" id="hidden-kategória" class="hidden" value=<%= kategória %>>
+    <input type="text" name="kép" id="kép">
+   <section class="flex">
+     <div class="mr-10">
+       <div class="mb-4">
+         <label for="név" class="block text-gray-700 font-bold mb-2">Termék neve</label>
+         <input type="text" id="név" name="név" class="label" required value=<%= messages.név %>>
+       </div>
+       <div class="mb-4">
+         <label for="ár" class="block text-gray-700 font-bold mb-2">Termék ára</label>
+         <input type="text" id="ár" name="ár" class="label" required>
+         <% if (messages.árError) { %>
+          <span class="text-red-700"><%= messages.árError %></span>
+          <% } %>
+       </div>
+       <div class="mb-4">
+           <label for="kategória" class="text-gray-700 font-bold mb-2 align-bottom mr-4">Termék kategóriája</label>
+           <select name="kategória" id="kategória" class="border-2 border-black pl-2 pr-2">
+               <option value="pizza">Pizza</option>
+               <option value="hamburger">Hamburger</option>
+               <option value="palacsinta">Palacsinta</option>
+               <option value="udito">Üdítő</option>
+           </select>
+       </div>
+     </div>
+     <div class="mb-4">
+       <label for="ár" class="block text-gray-700 font-bold mb-2">Termék leírás</label>
+       <textarea name="leírás" id="leírás" cols="40" rows="8" class="border-2 border-black resize-none"><%= messages.leírás %></textarea>
+     </div>
+   </section>
+    <div class="mb-4 mt-6" >
+      <label for="kép" class="block text-gray-700 font-bold mb-2">Kép a termék megjelenítéséhez</label>
+      <input type="file" id="image" name="image"  accept="image/png, image/jpeg" required>
+    </div>
+    <% if (messages.error) { %>
+      <span class="text-red-700"><%= messages.error %></span>
+    <% } %>
+    <div class="text-center mt-4">
+      <button type="submit" class="upload-btn p-2 pl-7 pr-7">Feltöltés</button>
+    </div>
+</form>

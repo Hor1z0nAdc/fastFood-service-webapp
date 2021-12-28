@@ -1,0 +1,35 @@
+<form action="/futarok/register" class="form bg-white rounded-md p-12 mt-5" method="post">
+    <h1 class="font-semibold text-xl text-center mb-4">Futár felvétel</h1>
+    <% if (messages.error) { %>
+        <span class="text-red-700"><%= messages.error %></span>
+        <% } %>
+      <div class="mb-4">
+        <% if (messages.nameError) { %>
+          <span class="text-red-700"><%= messages.nameError %></span>
+        <% } %>
+        <label for="name" class="block text-gray-700 font-bold mb-2">Név</label>
+        <input type="text" id="name" name="name" class="label" value="<%= messages.name %>" required>
+      </div>
+      <div class="mb-4">
+        <% if (messages.emailError) { %>
+          <span class="text-red-700"><%= messages.emailError %></span>
+        <% } %>
+        <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+        <input type="email" id="email" name="email" class="label" value="<%= messages.email %>" required>
+      </div>
+      <div class="mb-4">
+        <% if (messages.passwordError) { %>
+          <span class="text-red-700"><%= messages.passwordError %></span>
+        <% } %>
+        <label for="password1" class="block text-gray-700 font-bold mb-2">Jelszó</label>
+        <input type="password" id="password1" class="label" name="password1" required>
+      </div>
+      <div class="mb-6">
+        <% if (messages.password2Error) { %>
+          <span class="text-red-700"><%= messages.password2Error %></span>
+        <% } %>
+        <label for="password2" class="block text-gray-700 font-bold mb-2">Írja be ismét a jelszót</label>
+        <input type="password" id="password2" class="label" name="password2" required>
+      </div>
+        <button class="reg-btn text-sm font-bold" type="submit">Regisztráció</button>
+</form>

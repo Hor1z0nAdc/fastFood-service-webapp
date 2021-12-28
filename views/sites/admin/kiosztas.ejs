@@ -1,0 +1,72 @@
+<script src="/dist/kiosztas.js" defer></script>
+<section class="m-8 ml-14">
+    <h1 class="font-bold text-lg mb-4">Rendelések hozzárendelése a futárokhoz</h1>
+    <form class="flex border-gray-400 border-2 p-2" action="/futarok/kiosztas" method="post">
+        <table class="w-2/3  table-auto bg-white">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2 text-left">Ügyfél</th>
+                    <th class="px-4 py-2 text-left">Cím</th>
+                    <th class="px-4 py-2 text-left">Időpont</th>
+                    <th class="px-4 py-2 text-left w-8">Kijelöl</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% rendelések.forEach(rendelés => { %>
+                    <% if(rendelés.futárId == null) { %>
+                    <tr id=<%= rendelés._id %>> 
+                        <td class="border px-4 py-2"><%= rendelés.vásárlóId.email %></td>
+                        <td class="border px-4 py-2"><%= rendelés.cím %></td>
+                        <td class="border px-4 py-2"><%= dateFormat(rendelés.updateddAt, "shortTime") %></td>
+                        <td class="w-8"><input type="checkbox" name="<%= rendelés._id %>"  class="ml-8 check"></td>
+                    </tr>
+                    <% } else { %>
+                    <tr id=<%= rendelés._id %>> 
+                        <td class="border px-4 py-2 bg-gray-100"><%= rendelés.vásárlóId.email %></td>
+                        <td class="border px-4 py-2 bg-gray-100"><%= rendelés.cím %></td>
+                        <td class="border px-4 py-2 bg-gray-100"><%= dateFormat(rendelés.updateddAt, "shortTime") %></td>
+                        <td class="border pl-4 w-6 bg-gray-100"><a href="/futarok/kiosztas/delete?id=<%= rendelés._id %>"><img class="w-3/4" src="images/remove.png" alt="x"></a></td>
+                    </tr>  
+                    <% } %>
+                <% }); %>
+            </tbody>
+        </table> 
+        <div class="ml-16">
+            <label class="font-semibold">Futár kiválasztása</label>
+            <select name="futár" class="border-2 border-black pl-2 pr-2 ml-4">
+                <% futárok.forEach(futár => { %>
+                   <option value=<%= futár._id %>><%= futár.név %></option>
+                <% }); %>
+            </select>
+            <button type="submit" id="hozzarendel" class="hozzarendel-btn font-semibold mt-4 pl-4 pr-4 py-2">Hozzárendelés</button>
+        </div>
+    </form>
+    <h1 class="font-bold text-lg mt-8">Jelenlegi hozzárendelés</h1>
+    <% if(futárHozzárendelés.length > 0) {  %>
+    <section class="flex flex-wrap gap-x-10 gap-y-10 mt-4 border-gray-400 border-2 p-2">
+        <% futárHozzárendelés.forEach(futár => { let i = 0 %>
+            <div>
+                <h1 class="font-semibold mb-2 text-center"><%= futár[i].futárNév %></h1>
+                <table class="table-auto bg-white">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">Cím</th>
+                            <th class="px-4 py-2">Telefonszám</th>
+                            <th class="px-4 py-2">Törlés</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% futár.forEach(element => { %>
+                        <tr>
+                            <td class="border px-4 py-2"><%= element.cím %></td>
+                            <td class="border px-4 py-2"><%= element.telefonszám %></td>
+                            <td class="border pl-4 w-6"><a href="/futarok/kiosztas/delete?id=<%= element._id %>"><img class="w-3/4" src="images/remove.png" alt="x"></a></td>
+                        </tr>
+                   <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        <% i++ }); %>
+    </section>
+    <% } %>
+</section>

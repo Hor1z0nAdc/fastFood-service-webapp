@@ -1,0 +1,69 @@
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js" defer></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js" defer></script>
+<script src="/dist/geocoder.js" defer></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css" rel="stylesheet">
+
+<section class="py-12 px-4 lg:px-0">
+  <div class="lg:w-1/2 mx-auto">
+    <div class="flex items-baseline border-b border-gray-500 pb-4 ">
+        <img class="w-8 inline" src="images/shopping-cart.png" alt="shopping-cart">
+        <h1 class="font-bold text-2xl ml-3 inline pr-60">Kosár</h1>
+        <% if(session.cart) { %>
+          <a class="font-bold text-red-700" href="/cart/update/whatever?action=clearAll">Kosár törlése </a>
+        <% } %>
+    </div>
+
+    <% if(session.cart) { %>
+    <div>
+      <% for(let termék of Object.values(session.cart.items)) { %>
+        <% let ár = termék.item.ár * termék.quantity %>
+        <% ár = ár.toFixed(2) %>
+        <% console.log(session.cart.items) %>
+      <div class="flex items-center my-6">
+        <img class="w-24 h-24 object-contain" src="images/<%= termék.item.kép %>" alt="pizza">
+        <h1 class="ml-4 flex-1"><%= termék.item.név %></h1>
+        <span class="flex-1"><%= termék.quantity %></span>
+        <span class="font-bold text-lg flex-1"><%= ár %></span>
+        <div>
+          <a href="/cart/update/<%= termék.item._id%>?action=add">+</a>
+          <a href="/cart/update/<%= termék.item._id%>?action=remove">-</a>
+          <a href="/cart/update/<%= termék.item._id%>?action=clear">töröl</a>
+        </div>      
+      </div> 
+      <% } %>
+      <% let összeg = session.cart.totalPrice.toFixed(2) %>
+      <section class="float-right text-righ">
+        <div>
+        <div class="text-right">
+          <span class="tx-lg font-bold">Teljes összeg:</span>
+          <span class="tx-lg font-bold"><%= összeg %> €</span>
+        </div>
+        <form action="/vasarlo/rendeles" method="POST">
+          <div class="float-right">
+            <input class="hidden"  type="text" name="cím" id="cím" >
+            <input class="hidden"  type="text" name="coords1" id="coords1" >
+            <input class="hidden"  type="text" name="coords2" id="coords2" >
+            <input class="block shadow appearance-none border rounded py-2 px-3 leading-tight mt-4 mb-4 w-60"  type="text" placeholder="Telefonszám" name="telefonszám" >
+            <div class="geocoder" id="order-input"></div>
+          </div>
+            <% if(!user) { %>
+              <a class="font-bold text-xl text-form transition duration-200 linear hover:text-yellow-700 block" href="/bejelentkezes"> Jelentkezzen be a folytatáshoz</a>
+            <% } else { %>
+              <span class="text-red-700 block mb-3"><%= messages.error ? messages.error : "" %></span>
+              <button class="order-btn h-10 w-32 bg-yellow-500 flex items-center justify-center rounded-full transition duration-200 linear float-right" type="submit">Megrendelem</button> 
+            <% } %>
+        </form>
+      </section>
+    </div> 
+      <% } else { %>
+        <div class="mx-auto my-8 text-center">
+          <h1 class="font-bold mb-4 text-3xl">Üres a kosár</h1>
+          <p class="text-gray-500 text-lg mb-12">Még nem rendeltél semmit, de ne csüggedj, a főoldalra visszatérve megteheted.</p>
+          <img class="w-2/5 mx-auto mb-3" src="images/empty-cart.png" alt="empty-cart">
+          <a class="rounded-full text-red-600 text-2xl font-bold py-2 hover:text-yellow-700" href="/">Főoldal</a>
+       </div>
+      </div>  <% } %>
+    </div>
+  </div>
+</section>

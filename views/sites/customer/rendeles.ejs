@@ -1,0 +1,38 @@
+<section>
+  <div class="mx-auto container">
+    <div class="mx-auto px-5 lg:px-0 lg:w-2/3 pt-14 állapot">
+      <div class="flex items-center justify-between mb-12">
+        <h1 class="text-xl font-bold">Megrendelésének állapota:</h1>
+        <h5 class="text-yellow-600 text-sm bg-white px-2 py-1 rounded-full"><%= rendelés._id %></h5>
+        <input type="hidden" id="hiddenInput" value="<%= JSON.stringify(rendelés) %>" >
+      </div>
+      <div class="flex justify-between">
+        <ul class="">
+          <li class="text-base md:text-xl pb-16 állapot-opció" data-status = "megrendelve"><span>Megrendelve</span></li>
+          <li class="text-base md:text-xl pb-16 állapot-opció" data-status = "elfogadva"><span>Elfogadva</span></li>
+          <li class="text-base md:text-xl pb-16 állapot-opció" data-status = "elkészítve"><span>Elkészítve</span></li>
+          <li class="text-base md:text-xl pb-16 állapot-opció" data-status = "kiszálítva"><span>Kiszálítva</span></li>
+          <li class="text-base md:text-xl pb-16 állapot-opció" data-status = "lezárva"><span>Lezárva</span></li>
+        </ul>
+        <section>
+          <% keys.forEach(key => { %>
+            <%console.log(termékek[key].item.ár)%>
+             <div class="flex items-center gap-x-10 mb-4 border-8 border-gray-50 p-2">
+               <img class="w-24 h-24 object-contain" src="images/<%= termékek[key].item.kép %>" alt="pizza">
+               <div class="w-28">
+                 <h2 class="font-semibold"><%= termékek[key].item.név %></h2>
+               </div>
+               <div class="w-12">
+                 <h2 class="font-semibold"><%= termékek[key].quantity %> db</h2>
+               </div>
+               <h2 class="font-semibold"><%= termékek[key].quantity * termékek[key].item.ár %> €</h2>
+             </div>
+         <% }); %>
+         <div class="flex justify-end border-8 border-gray-50 mb-4 p-2">
+           <h2 class="font-semibold text-lg">Összesen: <%= összeg %> €</h2>
+         </div>
+       </section>
+      </div>
+    </div>
+  </div>
+</section>

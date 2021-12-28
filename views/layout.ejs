@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="custom.css">
+  <script src="/dist/bundle.js" defer></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <title>Document</title>
+</head>
+<body class="font-nunito bg-body">
+  <% if(user && user.beosztás === "futár") { %>
+    <nav class="text-black py-2 bg-white text-center">
+      <a class="uppercase nav-list" href="/logout">Kijelentkezek</a>
+    </nav>
+  <% } else { %> 
+   <nav class="text-base flex justify-around items-center text-black py-2 bg-white navbar">
+     <div class="toggle-btn">
+       <span class="bar"></span>
+       <span class="bar"></span>
+       <span class="bar"></span>
+     </div>
+    <div class="w-56 logo flex items-center uppercase">
+      <a href="/"> <img class="w-24" src="images/logo.png" alt="logo"></a>
+      <% if(user && user.beosztás === "admin") { %>
+       <a href="/futarok" class="ml-4 nav-list">Futárok</a>
+        <% } %>
+    </div>
+    <div class="nav-links">
+      <ul class="flex items-center uppercase">
+        <li class="nav-list"><a href="/pizza">pizza</a></li>
+        <li class="ml-3 lg:ml-5 nav-list"><a href="/hamburger">hamburger</a></li>
+        <li class="ml-3 lg:ml-5 nav-list"><a href="/palacsinta">palacsinta</a></li>
+        <li class="ml-3 lg:ml-5 nav-list"><a href="/udito">üdítő</a></li>
+      </ul>
+    </div>
+    <div class="nav-links uppercase">
+      <ul class="flex items-center">
+        <% if(user && user.beosztás === "vásárló") { %>
+          <li class="nav-list">
+            <a href="/vasarlo/rendelesek">Rendeléseim</a></li>
+          <li class="ml-3 lg:ml-5 nav-list">
+             <a href="/logout">Kijelentkezek</a></li>
+
+        <% } else if(user && user.beosztás === "admin") { %>
+          <li class="nav-list">
+            <a href="/admin/rendelesek">Rendelések</a></li>
+          <li class="ml-2 lg:ml-5 nav-list">
+             <a href="/logout">Kijelentkezek</a></li>
+
+        <% }  else { %>
+          <li class="ml-3 lg:ml-0 nav-list"><a href="/regisztracio">Regisztrálok</a></li>
+          <li class="ml-3 lg:ml-5 nav-list"><a href="/bejelentkezes">Bejelentkezek</a></li>
+        <% } %>
+        <li class="ml-5">
+          <a href="/cart">
+          <div class="w-16 h-10 bg-yellow-200 flex items-center rounded-full transition duration-200 linear hover:bg-yellow-500">
+            <span class="font-bold px-2" id="cartCounter"><%= session.cart ? session.cart.totalQuantity : '' %></span>
+            <img class="w-6" src="images/shopping-cart.png" alt="shopping-cart">
+          </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <% } %> 
+  <%- body %>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<div class="mt-10 text-center">
+    <a href="/futarok/register" class="upload-btn p-2 pl-7 pr-7">Futár felvétel</a>
+</div>
+<div class="container mx-auto pt-8">
+    <table class="w-2/3 mx-auto table-auto bg-white">
+        <thead>
+            <tr>
+                <th class="px-4 py-2 text-left">Név</th>
+                <th class="px-4 py-2 text-left">Email</th>
+                <th class="px-4 py-2 text-left">Regisztrálás ideje</th>
+                <th class="px-4 py-2 text-left">Törlés</th>
+            </tr>
+        </thead>
+        <tbody id="orderTableBody">
+            <% futárok.forEach(futár => { %>
+                <tr id=<%= futár._id %>>
+                    <td class="border px-4 py-2"><%= futár.név %></td>
+                    <td class="border px-4 py-2"><%= futár.email %></td>
+                    <td class="border px-4 py-2"><%= futár.createdAt %></td>
+                    <td class="border px-4 w-4"><button class="deleteDeliveryBtn" data-futár="<%= JSON.stringify(futár) %>"><img class="w-full h-full" src="images/remove.png" alt="x"></button></td>
+                </tr>
+            <% }); %>
+        </tbody>
+</div>

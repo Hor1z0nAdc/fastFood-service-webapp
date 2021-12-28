@@ -1,0 +1,31 @@
+<script src="/dist/mapbox.js" defer></script>
+<script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js'></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.css' rel='stylesheet' />
+<div class="mt-5 w-full h-5/6">
+    <table class="table-auto bg-white mx-auto mb-2">
+        <thead>
+            <tr>
+                <th class="px-4 py-2">Cím</th>
+                <th class="px-4 py-2">Telefonszám</th>
+                <th class="px-4 py-2">Kivon</th>
+                <th class="px-4 py-2">Törlés</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% rendelések.forEach(rendelés => { %>
+            <tr id=<%= rendelés._id %>>
+                <td class="border px-4 py-2"><%= rendelés.cím %></td>
+                <td class="border px-4 py-2"><%= rendelés.telefonszám %></td>
+                <td class="border w-8"><input type="checkbox" name="<%= rendelés._id %>" data-rendelés="<%= JSON.stringify(rendelés) %>" class="ml-8 check"></td>
+                <td class="border pl-4 w-6"><button disabled class="deleteDropoffBtn" id="btn<%= rendelés._id %>" data-rendelés="<%= JSON.stringify(rendelés) %>" ><img class="w-3/4" src="images/remove.png" alt="x"></button></td>
+            </tr>
+        <% }); %>
+        </tbody> 
+    </table>
+    
+    <input type="hidden" id="coords" value=<%= coords %>>
+    <div id="map" class="mx-auto mb-4 border-white"></div>
+</div> 

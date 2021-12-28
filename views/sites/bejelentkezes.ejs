@@ -1,0 +1,18 @@
+<form class="form bg-white rounded-md p-12" action="/bejelentkezes" method="POST" autocomplete="off">
+  <div class="mb-4">
+      <% if (messages.error) { %>
+      <span class="text-red-700"><%= messages.error %></span>
+      <% } %>
+    <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
+    <input type="email" id="email" name="email" class="label" value="<%= messages.email %>" required>
+  </div>
+  <div class="mb-4">
+    <label for="password" class="block text-gray-700 font-bold mb-2">Jelszó</label>
+    <input type="password" id="password" name="password" class="label" required>
+  </div class="mb-6">
+  <button class="reg-btn text-sm" type="submit">bejelentkezés</button>
+  <a class="ml-4 text-sm font-bold text-form transition duration-200 linear hover:text-yellow-700" href="/regisztracio">Még nem regisztrált?</a>
+  <div class="mt-4">
+    <a class="text-sm font-bold text-form transition duration-200 linear hover:text-yellow-700" href="/elfelejtett_jelszo">Elfelejtette a jelszavát?</a>
+  </div>
+</form>
