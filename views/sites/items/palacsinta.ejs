@@ -1,6 +1,8 @@
+<% if(user && user.beosztás === "admin") { %>
 <div class="mt-10 text-center">
   <a href="/upload-item/?kategoria=palacsinta" class="upload-btn p-2 pl-5 pr-5">Új termék feltöltése</a>
 </div>
+<% } %>
 <section class="p-8 flex flex-wrap flex-col md:flex-row">
   <% palacsinta.forEach(termék => { %>
     <% let ár = termék.ár.toFixed(2)%>
