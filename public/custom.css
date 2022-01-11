@@ -12,10 +12,6 @@ body{
   height: 220px;
 }
 
-.indexImg-container {
-
-}
-
 .indexImg{
   height: 500px;
 }
@@ -42,10 +38,11 @@ body{
 }
 
 .work-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%)
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 .work-btn {
@@ -222,13 +219,9 @@ body{
 }
 
 #map {
-  width: 93%;
+  width: 87%;
   height: 600px;
   border-width: 12px;
-}
-
-.mapboxgl-ctrl-geocoder {
-  
 }
 
 .truck {
@@ -252,6 +245,19 @@ input[type=checkbox] {
     left: 50%;
     transform: translateX(-50%)
     
+  }
+
+  .help-container {
+    display: inline-block;
+    margin-left: 1rem;
+  }
+
+  .work-container{
+  
+  }
+
+  #map {
+    width: 93%;
   }
 }
 
