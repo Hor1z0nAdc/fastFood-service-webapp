@@ -55,6 +55,7 @@
           <li class="ml-3 lg:ml-0 nav-list"><a href="/regisztracio">Regisztrálok</a></li>
           <li class="ml-3 lg:ml-5 nav-list"><a href="/bejelentkezes">Bejelentkezek</a></li>
         <% } %>
+        <% if((user && user.beosztás !== "admin") || user == undefined) { %>
         <li class="ml-5">
           <a href="/cart">
           <div class="w-16 h-10 bg-yellow-200 flex items-center rounded-full transition duration-200 linear hover:bg-yellow-500">
@@ -63,6 +64,7 @@
           </div>
           </a>
         </li>
+        <% } %>
       </ul>
     </div>
   </nav>

@@ -216,6 +216,8 @@ body{
   line-height: 1.25;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  width: 15rem;
+  height: 2rem;
 }
 
 #map {

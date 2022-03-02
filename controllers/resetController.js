@@ -103,7 +103,7 @@ const getNewPassword = async (req,res) => {
     return res.redirect("/elfelejtett_jelszo")
   }
 
-   //res.render("sites/password/newPassword")
+  //res.render("sites/password/newPassword")
 } 
 
 const postNewPassword = async (req,res) => {

@@ -1,11 +1,18 @@
-function currentDate() {
+function currentDate()  {
     let today = new Date()
-    let day = String(today.getDate()).padStart(2, '0')
-    let month = String(today.getMonth() + 1).padStart(2, '0')
-    let year = today.getFullYear()
-
-    today = year + '/' + month + '/' + day
+    today = formatDate(today)
     return today
 } 
 
-module.exports = { currentDate };
+function formatDate(date) {
+    let day = String(date.getDate()).padStart(2, '0')
+    let month = String(date.getMonth() + 1).padStart(2, '0')
+    let year = date.getFullYear()
+
+    return year + '/' + month + '/' + day
+}
+
+module.exports = {
+   formatDate,
+   currentDate
+}

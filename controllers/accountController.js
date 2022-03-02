@@ -1,6 +1,7 @@
 const Felhasználó = require("../models/felhasználó")
 const passport = require("passport")
 const bcrypt = require("bcrypt")
+const accountF = require("../src/functions/accountFunctions.js")
 
 const getRegister = (req,res) => {
   res.render("sites/regisztracio")
@@ -13,52 +14,17 @@ const getLogin = (req,res) => {
 const postRegister = async (req,res) =>{
   const {name, email, password1, password2} = req.body
 
-  //Név ellenőrzés
-  if(!name) {
-    req.flash("nameError", "Meg kell adnia a felhasználónevét!")
-    req.flash("email", email)
-    return res.redirect("/regisztracio")
-  }
-  else if (name.length < 3 || name.length > 13) {
-    req.flash("nameError", "A felhasználónévnek 3-16 karakter hosszúnak kell lennie.")
-    req.flash("email", email)
-    return res.redirect("/regisztracio")
-  }
-
-  //Email ellenőrzés
-  if(!email) {
-    req.flash("emailError", "Meg kell adnia az email címét!")
-    req.flash("név", name)
-    return res.redirect("/regisztracio")
-  }
-
-  //Jelszó ellenőrzés
-  if(!password1){
-    req.flash("passwordError", "Meg kell adnia a jelszavát!")
-    req.flash("email", email)
-    req.flash("név", name)
-    return res.redirect("/regisztracio")
-  }
-  else if( password1.length < 5 ||  password1.length > 16){
-    req.flash("passwordError", "A jelszónak 5-16 karakter hosszúnak kell lennie.")
-    req.flash("email", email)
-    req.flash("név", name)
-    return res.redirect("/regisztracio")
-  }
-  if(password1!== password2) {
-    req.flash("password2Error", "A két jelszó nem egyezik!")
-    req.flash("email", email)
-    req.flash("név", name)
-    return res.redirect("/regisztracio")
-  }
+  //Megadott paraméterek validációja
+  const isInvalid = accountF.registerValidation(name, email, password1, password2, req)
 
   //Foglalt email ellenőrzés
-  const isExist = await Felhasználó.exists({email})
-  if(isExist) {
-    req.flash("emailError", "A megadott email már foglalt!")
-    req.flash("név", name)
-    return res.redirect("/regisztracio")
+  const isTaken = await Felhasználó.exists({email})
+  if (isTaken) {
+    accountF.takenEmail(name, req)
   } 
+    
+  
+  if(isInvalid || isTaken) return res.redirect("/regisztracio")
 
   //Ha minden jó, felhasználó objektum létrehozás
   const hashedPassword = await bcrypt.hash(password1, 12)

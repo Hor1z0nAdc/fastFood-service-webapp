@@ -2,6 +2,7 @@ const axios = require('axios')
 const Swal = require("sweetalert2")
 const dateFormat = require("dateFormat")
 const initAdmin = require("./admin")
+const domF = require("./functions/domFunctions.js")
 
 const addBtn = document.querySelectorAll(".add-customer");
 const cartCounter = document.querySelector("#cartCounter");
@@ -14,13 +15,7 @@ let deleteDeliveryBtn = null
 let deleteDropoffBtn = null
 
 //Button for mobile users
-if(toggleBtn != null) {
-  toggleBtn.addEventListener("click", () => {
-    navbarnLink.forEach(link => {
-      link.classList.toggle("active")
-    })
-  })
-}
+mobileBtn(toggleBtn, navbarnLink)
 
 //Handling cart update
 function updateCart(termék) {
@@ -213,3 +208,17 @@ socket.on("orderPlaced", order => {
   })
   rendelések.unshift(order)
 })
+
+function mobileBtn(toggleBtn, navbarnLink) {
+  if(toggleBtn != null) {
+    toggleBtn.addEventListener("click", () => {
+      navbarnLink.forEach(link => {
+        link.classList.toggle("active")
+      })
+    })
+  }
+}
+
+module.exports = {
+  mobileBtn
+}

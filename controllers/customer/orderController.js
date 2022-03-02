@@ -11,17 +11,12 @@ const show = async (req,res) => {
   const rendelés = await Rendelés.findById(req.params.id)
 
   if(req.user._id.toString() === rendelés.vásárlóId.toString()) {
-    const keys = Object.keys(rendelés.termékek)
-    let összeg = 0
-
-    keys.forEach(key => {
-      összeg += rendelés.termékek[key].item.ár *  rendelés.termékek[key].quantity
-    });
+    let results = key(rendelés)
 
     return res.render("sites/customer/rendeles", {termékek: rendelés.termékek, 
-                                                  keys, 
+                                                  keys: results.keys, 
                                                   rendelés, 
-                                                  összeg 
+                                                  összeg: results.összeg
                                                  })
   }
 
@@ -70,9 +65,42 @@ const rendelés = (req,res) => {
  })
 }
 
+function key(rendelés) {
+  const keys = Object.keys(rendelés.termékek)
+  let összeg = 0
+
+  keys.forEach(key => {
+    összeg += rendelés.termékek[key].item.ár *  rendelés.termékek[key].quantity
+  });
+
+  return { keys, összeg }
+}
+
+function saveRendelés(req, telefonszám, cím, coordsArray) {
+  const rendelés = new Rendelés({
+    vásárlóId: req.user._id,
+    termékek: req.session.cart.items,
+    telefonszám,
+    cím,
+    koordináta: coordsArray
+  })
+  rendelés.save()
+
+  return new Promise((resolve, reject) => {
+     if(true) {
+       resolve("bro")
+     }
+     else {
+       reject("nope")
+     }
+   })
+}
+
 module.exports = {
   rendelés,
   index,
   show,
-  deleteClosedOrder
+  deleteClosedOrder,
+  key,
+  saveRendelés
 }

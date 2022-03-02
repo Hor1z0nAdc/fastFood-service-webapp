@@ -30,10 +30,10 @@ const storage = multer.diskStorage({
     destination: (req, file, callback) => {
       callback(null, "public/images")
     },
-  
+   
     filename: (req,file, callback) => {
         let currentDate = date.currentDate()
-        currentDate = currentDate.replaceAll("/","")
+        currentDate = currentDate.replace(/\//g,"");
         const savedFileName = path.parse(file.originalname).name  + currentDate + path.parse(file.originalname).ext
         callback(null, savedFileName)
     }
