@@ -10,7 +10,7 @@
         <img class="w-8 inline" src="images/shopping-cart.png" alt="shopping-cart">
         <h1 class="font-bold text-2xl ml-3 inline pr-60">Kosár</h1>
         <% if(session.cart) { %>
-          <a class="font-bold text-red-700" href="/cart/update/whatever?action=clearAll">Kosár törlése </a>
+          <a class="font-bold text-red-700" href="/cart/update/whatever?action=clearAll" data-testid="clearAction">Kosár törlése </a>
         <% } %>
     </div>
 
@@ -22,13 +22,13 @@
         <% console.log(session.cart.items) %>
       <div class="flex items-center my-6">
         <img class="w-24 h-24 object-contain" src="images/<%= termék.item.kép %>" alt="pizza">
-        <h1 class="ml-4 flex-1"><%= termék.item.név %></h1>
-        <span class="flex-1"><%= termék.quantity %></span>
+        <h1 data-testid="termekNev" class="ml-4 flex-1"><%= termék.item.név %></h1>
+        <span data-testid="termekMennyiseg" class="flex-1"><%= termék.quantity %></span>
         <span class="font-bold text-lg flex-1"><%= ár %></span>
         <div>
-          <a href="/cart/update/<%= termék.item._id%>?action=add">+</a>
-          <a href="/cart/update/<%= termék.item._id%>?action=remove">-</a>
-          <a href="/cart/update/<%= termék.item._id%>?action=clear">töröl</a>
+          <a href="/cart/update/<%= termék.item._id%>?action=add" data-testid="plusAction" class="font-semibold text-red-600 pr-1">+</a>
+          <a href="/cart/update/<%= termék.item._id%>?action=remove" data-testid="minusAction" class="font-semibold text-red-600 pr-1">–</a>
+          <a href="/cart/update/<%= termék.item._id%>?action=clear" data-testid="deleteAction" class="font-semibold text-red-600">töröl</a>
         </div>      
       </div> 
       <% } %>
@@ -44,14 +44,14 @@
             <input class="hidden"  type="text" name="cím" id="cím" >
             <input class="hidden"  type="text" name="coords1" id="coords1" >
             <input class="hidden"  type="text" name="coords2" id="coords2" >
-            <input class="block shadow appearance-none border rounded py-2 px-3 leading-tight mt-4 mb-4 w-60"  type="text" placeholder="Telefonszám" name="telefonszám" >
-            <div class="geocoder" id="order-input"></div>
+            <input class="block shadow appearance-none border rounded py-2 px-3 leading-tight mt-4 mb-4 w-60"  type="text" placeholder="Telefonszám" name="telefonszám" data-testid="phoneInput">
+            <div class="geocoder" id="order-input" data-testid="addressInput"></div>
           </div>
             <% if(!user) { %>
               <a class="font-bold text-xl text-form transition duration-200 linear hover:text-yellow-700 block" href="/bejelentkezes"> Jelentkezzen be a folytatáshoz</a>
             <% } else { %>
               <span class="text-red-700 block mb-3"><%= messages.error ? messages.error : "" %></span>
-              <button class="order-btn h-10 w-32 bg-yellow-500 flex items-center justify-center rounded-full transition duration-200 linear float-right" type="submit">Megrendelem</button> 
+              <button class="order-btn h-10 w-32 bg-yellow-500 flex items-center justify-center rounded-full transition duration-200 linear float-right" type="submit" data-testid="orderBtn">Megrendelem</button> 
             <% } %>
         </form>
       </section>

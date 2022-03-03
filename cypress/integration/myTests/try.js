@@ -2,6 +2,12 @@
 
 describe.only('', () => {
     it('weboldal betöltődik', () => {
-        cy.visit("localhost:3000")
+        cy.viewport(1280, 720)
+        cy.visit("https://gyorsetterem.herokuapp.com/")
+        cy.get('[data-testid="bejelentkezes"]').click()
+    });
+
+    it('bejelentkezés nem létező emaillel', () => {
+
     });
 });

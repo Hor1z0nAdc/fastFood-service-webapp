@@ -18,7 +18,7 @@
                         <td class="border px-4 py-2"><%= rendelés.vásárlóId.email %></td>
                         <td class="border px-4 py-2"><%= rendelés.cím %></td>
                         <td class="border px-4 py-2"><%= dateFormat(rendelés.updateddAt, "shortTime") %></td>
-                        <td class="w-8"><input type="checkbox" name="<%= rendelés._id %>"  class="ml-8 check"></td>
+                        <td class="w-8"><input data-testid="check" type="checkbox" name="<%= rendelés._id %>"  class="ml-8 check"></td>
                     </tr>
                     <% } else { %>
                     <tr id=<%= rendelés._id %>> 
@@ -38,7 +38,7 @@
                    <option value=<%= futár._id %>><%= futár.név %></option>
                 <% }); %>
             </select>
-            <button type="submit" id="hozzarendel" class="hozzarendel-btn font-semibold mt-4 pl-4 pr-4 py-2">Hozzárendelés</button>
+            <button data-testid="hozzarendelBtn" type="submit" id="hozzarendel" class="hozzarendel-btn font-semibold mt-4 pl-4 pr-4 py-2">Hozzárendelés</button>
         </div>
     </form>
     <h1 class="font-bold text-lg mt-8">Jelenlegi hozzárendelés</h1>

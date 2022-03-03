@@ -5,31 +5,31 @@
         <% } %>
       <div class="mb-4">
         <% if (messages.nameError) { %>
-          <span class="text-red-700"><%= messages.nameError %></span>
+          <span data-testid="nameError" class="text-red-700"><%= messages.nameError %></span>
         <% } %>
         <label for="name" class="block text-gray-700 font-bold mb-2">Név</label>
-        <input type="text" id="name" name="name" class="label" value="<%= messages.name %>" required>
+        <input data-testid="nameInput" type="text" id="name" name="name" class="label" value="<%= messages.name %>" required>
       </div>
       <div class="mb-4">
         <% if (messages.emailError) { %>
-          <span class="text-red-700"><%= messages.emailError %></span>
+          <span data-testid="emailError" class="text-red-700"><%= messages.emailError %></span>
         <% } %>
         <label for="email" class="block text-gray-700 font-bold mb-2">Email</label>
-        <input type="email" id="email" name="email" class="label" value="<%= messages.email %>" required>
+        <input data-testid="emailInput" type="email" id="email" name="email" class="label" value="<%= messages.email %>" required>
       </div>
       <div class="mb-4">
         <% if (messages.passwordError) { %>
-          <span class="text-red-700"><%= messages.passwordError %></span>
+          <span data-testid="pwError" class="text-red-700"><%= messages.passwordError %></span>
         <% } %>
         <label for="password1" class="block text-gray-700 font-bold mb-2">Jelszó</label>
-        <input type="password" id="password1" class="label" name="password1" required>
+        <input data-testid="pw1Input" type="password" id="password1" class="label" name="password1" required>
       </div>
       <div class="mb-6">
         <% if (messages.password2Error) { %>
-          <span class="text-red-700"><%= messages.password2Error %></span>
+          <span data-testid="pw2Error" class="text-red-700"><%= messages.password2Error %></span>
         <% } %>
         <label for="password2" class="block text-gray-700 font-bold mb-2">Írja be ismét a jelszót</label>
-        <input type="password" id="password2" class="label" name="password2" required>
+        <input data-testid="pw2Input" type="password" id="password2" class="label" name="password2" required>
       </div>
-        <button class="reg-btn text-sm font-bold" type="submit">Regisztráció</button>
+        <button data-testid="registerBtn" class="reg-btn text-sm font-bold" type="submit">Regisztráció</button>
 </form>

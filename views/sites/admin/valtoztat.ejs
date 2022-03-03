@@ -8,11 +8,11 @@
    <div class="mr-10">
      <div class="mb-4">
        <label for="név" class="block text-gray-700 font-bold mb-2">Termék neve</label>
-       <input type="text" id="név" name="név" class="label" value=<%= termék.név %> required>
+       <input data-testid="nameInput" type="text" id="név" name="név" class="label" value=<%= termék.név %> required>
      </div>
      <div class="mb-4">
        <label for="ár" class="block text-gray-700 font-bold mb-2">Termék ára</label>
-       <input type="text" id="ár" name="ár" class="label" value=<%= termék.ár %> required>
+       <input data-testid="priceInput" type="text" id="ár" name="ár" class="label" value=<%= termék.ár %> required>
        <% if (messages.árError) { %>
         <span class="text-red-700"><%= messages.árError %></span>
         <% } %>
@@ -29,7 +29,7 @@
    </div>
    <div class="mb-4">
      <label for="ár" class="block text-gray-700 font-bold mb-2">Termék leírás</label>
-     <textarea name="leírás" id="leírás" cols="40" rows="8" class="border-2 border-black resize-none p-2"><%= termék.leírás %></textarea>
+     <textarea data-testid="descrInput" name="leírás" id="leírás" cols="40" rows="8" class="border-2 border-black resize-none p-2"><%= termék.leírás %></textarea>
    </div>
  </section>
   <div class="mb-4 mt-6" >
@@ -37,6 +37,6 @@
     <input type="file" id="image" name="image" accept="image/png, image/jpeg">
   </div>
   <div class="text-center mt-4">
-    <button type="submit" class="upload-btn p-2 pl-7 pr-7">Feltöltés</button>
+    <button data-testid="submitBtn" type="submit" class="upload-btn p-2 pl-7 pr-7">Feltöltés</button>
   </div>
 </form>

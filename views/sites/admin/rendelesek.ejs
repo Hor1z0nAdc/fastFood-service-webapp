@@ -1,7 +1,7 @@
 <section>
   <div class="container mx-auto pt-6">
     <div class="text-center">
-        <a href="/futarok/kiosztas" class="upload-btn p-2 pl-7 pr-7">Rendelések kiosztása </a>
+        <a href="/futarok/kiosztas" class="upload-btn p-2 pl-7 pr-7" data-testid="kiosztBtn">Rendelések kiosztása </a>
     </div>
     <h1 class="font-bold text-lg mb-4">Az összes rendelés</h1> 
     <table class="w-full table-auto bg-white">
@@ -27,19 +27,19 @@
                     <div class="inline-block relative w-64">
                         <form action="/admin/rendeles/allapot" method="POST">
                             <input type="hidden" name="orderId" value="<%= rendelés._id %>">
-                            <select name="status" onchange="this.form.submit()"
+                            <select data-testid="selectinput" name="status" onchange="this.form.submit()"
                                 class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                                 <option value="megrendelve"
                                     <%  rendelés.állapot === 'megrendelve' ? 'selected' : '' %>>
                                     Megrendelve</option>
                                 <option value="elfogadva" <%= rendelés.állapot === 'elfogadva' ? 'selected' : '' %>>
                                     Elfogadva</option>
-                                <option value="elkészítve" <%= rendelés.állapot === 'elkészítve' ? 'selected' : '' %>>
+                                <option data-testid="elkeszitveOpt" value="elkészítve" <%= rendelés.állapot === 'elkészítve' ? 'selected' : '' %>>
                                     Elkészítve</option>
                                 <option value="kiszállítva" <%= rendelés.állapot === 'kiszállítva' ? 'selected' : '' %>>
                                     Kiszállítva
                                 </option>
-                                <option value="lezárva" <%= rendelés.állapot === 'lezárva' ? 'selected' : '' %>>
+                                <option data-testid="lezarvaOpt" value="lezárva" <%= rendelés.állapot === 'lezárva' ? 'selected' : '' %>>
                                     Lezárva
                                 </option>
                             </select>
@@ -59,7 +59,7 @@
                 </td>
                 <td>
                 <% if(rendelés.állapot === "lezárva") { %>
-                    <a href="/admin/rendelesek/delete?id=<%= rendelés._id %>"><img class="w-10 ml-5" src="images/remove.png" alt="x"></a>
+                    <a data-testid="deleteBtn" href="/admin/rendelesek/delete?id=<%= rendelés._id %>"><img class="w-10 ml-5" src="images/remove.png" alt="x"></a>
                 <% } %>
                 </td>
             </tr>

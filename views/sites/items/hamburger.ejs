@@ -1,6 +1,6 @@
 <% if(user && user.beosztás === "admin") { %>
 <div class="mt-10 text-center">
-  <a href="/upload-item/?kategoria=hamburger" class="upload-btn p-2 pl-5 pr-5">Új termék feltöltése</a>
+  <a href="/upload-item/?kategoria=hamburger" class="upload-btn p-2 pl-5 pr-5" data-testid="uploadBtn">Új termék feltöltése</a>
 </div>
 <% } %>
 <section class="p-8 flex flex-wrap flex-col md:flex-row">
@@ -12,17 +12,17 @@
       <div class="w-64 m-8 bg-white termék">
         <img class="w-60 h-52 mx-auto pt-2" src="images/<%= termék.kép %>" alt="hamburger">
       <div>
-      <h2 class="m-2 text-center text-xl"><%= termék.név %></h2>
+      <h2 class="m-2 text-center text-xl" data-testid="termekNev"><%= termék.név %></h2>
       <div class="ml-8 text-lg text-gray-700">
         <span class=""><%= termék.leírás %></span>
       </div>
       <div class="flex items-center justify-around my-4 pb-3">
         <span class="font-bold text-lg"><%= ár %> €</span>
         <% if(user && user.beosztás === "admin") { %>
-          <a href=<%= changePath %> class="add-btn change-admin pl-3">változtat</a>
-          <button class="add-btn delete-admin" data-termék="<%= JSON.stringify(termék) %>" >törlés</button>
+          <a href=<%= changePath %> class="add-btn change-admin pl-3" data-testid="valtoztatBtn">változtat</a>
+          <button class="add-btn delete-admin" data-termék="<%= JSON.stringify(termék) %>" data-testid="deleteBtn" >törlés</button>
         <% } else { %>
-          <button data-termék="<%= JSON.stringify(termék) %>" class="add-btn add-customer">
+          <button data-termék="<%= JSON.stringify(termék) %>" data-testid="addBtn" class="add-btn add-customer">
             <span>+</span>
             <span>kosárba</span>
           </button>

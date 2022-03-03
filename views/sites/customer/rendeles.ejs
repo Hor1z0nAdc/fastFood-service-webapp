@@ -3,7 +3,7 @@
     <div class="mx-auto px-5 lg:px-0 lg:w-2/3 pt-14 állapot">
       <div class="flex items-center justify-between mb-12">
         <h1 class="text-xl font-bold">Megrendelésének állapota:</h1>
-        <h5 class="text-yellow-600 text-sm bg-white px-2 py-1 rounded-full"><%= rendelés._id %></h5>
+        <h5 class="text-yellow-600 text-sm bg-white px-2 py-1 rounded-full" data-testid="rendelesId"><%= rendelés._id %></h5>
         <input type="hidden" id="hiddenInput" value="<%= JSON.stringify(rendelés) %>" >
       </div>
       <div class="flex justify-between">

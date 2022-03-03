@@ -14,7 +14,7 @@
 <body class="font-nunito bg-body">
   <% if(user && user.beosztás === "futár") { %>
     <nav class="text-black py-2 bg-white text-center">
-      <a class="uppercase nav-list" href="/logout">Kijelentkezek</a>
+      <a class="uppercase nav-list" href="/logout" data-testid="logoutNav">Kijelentkezek</a>
     </nav>
   <% } else { %> 
    <nav class="text-base flex justify-around items-center text-black py-2 bg-white navbar">
@@ -26,39 +26,39 @@
     <div class="w-56 logo flex items-center uppercase">
       <a href="/"> <img class="w-24" src="images/logo.png" alt="logo"></a>
       <% if(user && user.beosztás === "admin") { %>
-       <a href="/futarok" class="ml-4 nav-list">Futárok</a>
+       <a href="/futarok" class="ml-4 nav-list" data-testid="futarokNav">Futárok</a>
         <% } %>
     </div>
     <div class="nav-links">
       <ul class="flex items-center uppercase">
         <li class="nav-list"><a href="/pizza">pizza</a></li>
-        <li class="ml-3 lg:ml-5 nav-list"><a href="/hamburger">hamburger</a></li>
-        <li class="ml-3 lg:ml-5 nav-list"><a href="/palacsinta">palacsinta</a></li>
-        <li class="ml-3 lg:ml-5 nav-list"><a href="/udito">üdítő</a></li>
+        <li class="ml-3 lg:ml-5 nav-list"><a href="/hamburger" data-testid="hamburgerNav">hamburger</a></li>
+        <li class="ml-3 lg:ml-5 nav-list"><a href="/palacsinta" data-testid="palacsintaNav">palacsinta</a></li>
+        <li class="ml-3 lg:ml-5 nav-list"><a href="/udito" data-testid="uditoNav">üdítő</a></li>
       </ul>
     </div>
     <div class="nav-links uppercase">
       <ul class="flex items-center">
         <% if(user && user.beosztás === "vásárló") { %>
           <li class="nav-list">
-            <a href="/vasarlo/rendelesek">Rendeléseim</a></li>
+            <a href="/vasarlo/rendelesek" data-testid="rendeleseimNav">Rendeléseim</a></li>
           <li class="ml-3 lg:ml-5 nav-list">
-             <a href="/logout">Kijelentkezek</a></li>
+             <a data-testid="logoutNav" href="/logout">Kijelentkezek</a></li>
 
         <% } else if(user && user.beosztás === "admin") { %>
           <li class="nav-list">
-            <a href="/admin/rendelesek">Rendelések</a></li>
+            <a href="/admin/rendelesek" data-testid="rendelesekNav">Rendelések</a></li>
           <li class="ml-2 lg:ml-5 nav-list">
-             <a href="/logout">Kijelentkezek</a></li>
+             <a href="/logout" data-testid="logoutNav">Kijelentkezek</a></li>
 
         <% }  else { %>
-          <li class="ml-3 lg:ml-0 nav-list"><a href="/regisztracio">Regisztrálok</a></li>
-          <li class="ml-3 lg:ml-5 nav-list"><a href="/bejelentkezes">Bejelentkezek</a></li>
+          <li class="ml-3 lg:ml-0 nav-list"><a href="/regisztracio" data-testid="registerNav">Regisztrálok</a></li>
+          <li class="ml-3 lg:ml-5 nav-list"><a href="/bejelentkezes" data-testid="loginNav">Bejelentkezek</a></li>
         <% } %>
         <% if((user && user.beosztás !== "admin") || user == undefined) { %>
         <li class="ml-5">
           <a href="/cart">
-          <div class="w-16 h-10 bg-yellow-200 flex items-center rounded-full transition duration-200 linear hover:bg-yellow-500">
+          <div data-testid="cartNav" class="w-16 h-10 bg-yellow-200 flex items-center rounded-full transition duration-200 linear hover:bg-yellow-500">
             <span class="font-bold px-2" id="cartCounter"><%= session.cart ? session.cart.totalQuantity : '' %></span>
             <img class="w-6" src="images/shopping-cart.png" alt="shopping-cart">
           </div>

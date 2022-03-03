@@ -1,5 +1,5 @@
 <div class="mt-10 text-center">
-    <a href="/futarok/register" class="upload-btn p-2 pl-7 pr-7">Futár felvétel</a>
+    <a data-testid="felvetelInput" href="/futarok/register" class="upload-btn p-2 pl-7 pr-7">Futár felvétel</a>
 </div>
 <div class="container mx-auto pt-8">
     <table class="w-2/3 mx-auto table-auto bg-white">
@@ -8,7 +8,7 @@
                 <th class="px-4 py-2 text-left">Név</th>
                 <th class="px-4 py-2 text-left">Email</th>
                 <th class="px-4 py-2 text-left">Regisztrálás ideje</th>
-                <th class="px-4 py-2 text-left">Törlés</th>
+                <th  data-testid="deleteBtn" class="px-4 py-2 text-left">Törlés</th>
             </tr>
         </thead>
         <tbody id="orderTableBody">

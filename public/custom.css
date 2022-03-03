@@ -36,7 +36,7 @@ pre {
 .add-btn {
   background-color: rgba(253, 230, 138);
   border-radius: 30px;
-  width: 90px;
+  width: 6rem;
   color: black;
   transition: 200ms;
 }
