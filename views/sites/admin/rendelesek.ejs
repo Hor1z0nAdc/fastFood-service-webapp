@@ -19,10 +19,9 @@
             <% rendelések.forEach(rendelés => { %>
             <tr>
                 <td class="border px-4 py-2 text-green-900">
-                    <p><%= rendelés._id %></p>
-                    <div>termékek listája</div>
+                    <pre><%= rendelés.formated %></pre>
                 </td>
-                <td class="border px-4 py-2"><%= rendelés.vásárlóId.email %></td>
+                <td class="border px-4 py-2"><pre><%= rendelés.vásárlóId.email + "\n" + rendelés.telefonszám %></pre></td>
                 <td class="border px-4 py-2"><%= rendelés.cím %></td>
                 <td class="border px-4 py-2">
                     <div class="inline-block relative w-64">
@@ -56,7 +55,7 @@
                     </div>
                 </td>
                 <td class="border px-4 py-2">
-                    <%= dateFormat(rendelés.updateddAt, "shortTime") %>
+                    <%= dateFormat(rendelés.createdAt, "shortTime") %>
                 </td>
                 <td>
                 <% if(rendelés.állapot === "lezárva") { %>

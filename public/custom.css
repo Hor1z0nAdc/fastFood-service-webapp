@@ -3,6 +3,10 @@ body{
   height: 100%;
 }
 
+pre {
+  font-family: inherit;
+}
+
 .emoji {
   width: 150px;
 }
@@ -55,7 +59,8 @@ body{
 }
 
 .deleteDropoffBtn:disabled {
-  opacity: 0.85;
+  opacity: 0.7;
+  cursor: default;
 }
 
 .hozzarendel-btn {
@@ -103,7 +108,7 @@ body{
   border-radius: 30px;
   color: black;
   transition: 260ms;
-  width: 110px;
+  width: 8rem;
   height: 35px;
 }
 .reg-btn:hover,.add-btn:hover,.upload-btn:hover,.hozzarendel-btn:hover,.work-btn:hover{

@@ -4,6 +4,7 @@ const chaiHttp = require("chai-http")
 const server = require("../../../server.js")
 chai.use(chaiHttp)
 const delivery = require("../../../controllers/admin/deliveryController.js")
+const order = require("../../../controllers/admin/orderController.js")
 const item = require("../../../controllers/admin/itemActionController.js")
 const Felhasználó = require("../../../models/felhasználó")
 const date = require("../../../src/middlewares/date")
@@ -121,7 +122,7 @@ describe('Admin - deliveryController', () => {
     });
 })
 
-// //itemActionController.js
+//itemActionController.js
 describe('Admin - itemActionController', () => {
        let név = "dummyName"
        let leírás = " Lorem ipsum"
@@ -193,7 +194,7 @@ describe('Admin - itemActionController', () => {
         });
     });
 
-    //     //updateTermék()
+    //updateTermék()
     it('vissza kell adnia a frissített terméket - updateTermék ', async () => {
         const név = "dummyNév"
         const ár = "1"
@@ -227,3 +228,64 @@ describe('Admin - itemActionController', () => {
         
     });
 })
+
+//admin - ordercontroller.js
+describe('Admin - ordercontroller', () => {
+    let rendelések = [{
+        valami: "béla",
+        termékek: {
+            '3000': {
+              item: {
+                _id: 3000,
+                'név': 'Nutellás',
+                'ár': 1.5,
+                'kép': 'nutellás.jpg',
+                'kategória': 'palacsinta',
+                'leírás': '2 db Palacsinta nutellával töltve'
+              },
+              quantity: 1
+            },
+            '4002': {
+              item: {
+                _id: 4002,
+                'név': 'Lipton peach',
+                'ár': 1.2,
+                'kép': 'lipton peach.png',
+                'kategória': 'üdítő'
+              },
+              quantity: 2
+            }
+          }
+    },
+    { valami: "géza",
+      termékek: { '3000': {
+        item: {
+          _id: 3000,
+          'név': 'Nutellás',
+          'ár': 1.5,
+          'kép': 'nutellás.jpg',
+          'kategória': 'palacsinta',
+          'leírás': '2 db Palacsinta nutellával töltve'
+        },
+        quantity: 1}}
+    }
+   ]
+      
+    it('szeparálnia kell a termékeket a rendelésektől rendelők szerint - seperateTermékek()', () => {
+        let res = order.seperateTermékek(rendelések)
+        expect(res).to.be.a("array")
+        expect(res).to.have.lengthOf(2)
+        expect(res[0]).to.have.lengthOf(2)
+        expect(res[1]).to.have.lengthOf(1)
+    });
+
+    it('Megfelelő alakban (string) kell visszadnia a termékeket - formatTermékek', () => {
+        let seperated = order.seperateTermékek(rendelések)
+        let res = order.formatTermékek(seperated)
+
+        expect(res).to.be.a("array")
+        expect(res).to.have.lengthOf(2)
+        expect(res[0]).to.be.eql("Nutellás 1 db\nLipton peach 2 db\n")
+        expect(res[1]).to.be.eql("Nutellás 1 db\n")
+    });
+});

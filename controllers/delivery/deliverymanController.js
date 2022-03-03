@@ -18,13 +18,20 @@ const map = async (req,res) => {
      res.render("sites/deliveryman/map", { coords, rendelések })
 }
 
-const deleteDropoff = async (req,res, Rendelés = this.Rendelés) => {
-   let doc = await Rendelés.findOneAndUpdate({ _id : req.body._id }, { futárId: null, állapot: "kiszállítva" }, { new: true} )
-   return res.json({message: "success", id: doc._id })
+const deleteDropoff = async (req,res) => {
+     deleteDoc(Rendelés, req).then(doc => {
+          return res.json({message: "success", id: doc._id })
+     })
 }
  
+async function deleteDoc(Rendelés, req) {
+     let doc = await Rendelés.findOneAndUpdate({ _id : req.body._id }, { futárId: null, állapot: "kiszállítva" }, { new: true} )
+     return doc
+}
+
 module.exports = { 
      index,
      deleteDropoff,
+     deleteDoc,
      map 
 }

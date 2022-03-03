@@ -34,10 +34,10 @@ const postUploadItem = async (req,res) => {
     //Check if given price is valid
     const isIncorrect = incorrectData(ár, név, leírás, req)
     if(isIncorrect) return res.redirect("/upload-item?kategoria=" + kategória)
-
+  
     //Manipulate date and create name for new image
     let currentDate = date.currentDate()
-    const newImageName = createImageName(currentDate)
+    const newImageName = createImageName(currentDate, kép)
 
    //Find the max id (primary key) value and increment it
    Termék.find().sort({_id:-1}).limit(1).exec((err, result) => {
@@ -115,6 +115,7 @@ function createImageName(currentDate, kép) {
     currentDate = currentDate.replace(/\//g,"");
     return  path.parse(kép).name + currentDate + path.parse(kép).ext
 }
+
 function determinePath(doc) {
     let newKategória =  doc.kategória
 
