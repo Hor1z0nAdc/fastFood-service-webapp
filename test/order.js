@@ -1,9 +1,9 @@
 const chai = require("chai")
 const expect = require("chai").expect
 const chaiHttp = require("chai-http")
-const server = require("../../../server.js")
-const orderController = require("../../../controllers/customer/orderController.js")
-const Rendelés = require("../../../models/rendelés")
+const server = require("../server.js")
+const orderController = require("../controllers/customer/orderController.js")
+const Rendelés = require("../models/rendelés")
 const mongoose = require('mongoose');
 const Mockgoose = require('mockgoose').Mockgoose;
 chai.use(chaiHttp)

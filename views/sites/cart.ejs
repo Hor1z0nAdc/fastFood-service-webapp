@@ -48,7 +48,7 @@
             <div class="geocoder" id="order-input" data-testid="addressInput"></div>
           </div>
             <% if(!user) { %>
-              <a class="font-bold text-xl text-form transition duration-200 linear hover:text-yellow-700 block" href="/bejelentkezes"> Jelentkezzen be a folytatáshoz</a>
+              <a class="font-bold text-xl text-form transition duration-200 linear hover:text-yellow-700 block" href="/bejelentkezes">Jelentkezzen be a folytatáshoz</a>
             <% } else { %>
               <span class="text-red-700 block mb-3"><%= messages.error ? messages.error : "" %></span>
               <button class="order-btn h-10 w-32 bg-yellow-500 flex items-center justify-center rounded-full transition duration-200 linear float-right" type="submit" data-testid="orderBtn">Megrendelem</button> 

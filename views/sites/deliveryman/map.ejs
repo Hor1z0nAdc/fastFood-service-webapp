@@ -19,8 +19,8 @@
             <tr id=<%= rendelés._id %>>
                 <td class="border px-4 py-2"><%= rendelés.cím %></td>
                 <td class="border px-4 py-2"><%= rendelés.telefonszám %></td>
-                <td class="border w-8"><input type="checkbox" name="<%= rendelés._id %>" data-rendelés="<%= JSON.stringify(rendelés) %>" class="ml-8 check"></td>
-                <td class="border pl-4 w-6"><button disabled class="deleteDropoffBtn" id="btn<%= rendelés._id %>" data-rendelés="<%= JSON.stringify(rendelés) %>" ><img class="w-3/4" src="images/remove.png" alt="x"></button></td>
+                <td class="border w-8"><input data-testid="check" type="checkbox" name="<%= rendelés._id %>" data-rendelés="<%= JSON.stringify(rendelés) %>" class="ml-8 check"></td>
+                <td class="border pl-4 w-6"><button data-testid="deleteBtn" disabled class="deleteDropoffBtn" id="btn<%= rendelés._id %>" data-rendelés="<%= JSON.stringify(rendelés) %>" ><img class="w-3/4" src="images/remove.png" alt="x"></button></td>
             </tr>
         <% }); %>
         </tbody> 

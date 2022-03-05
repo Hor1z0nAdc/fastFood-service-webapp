@@ -1,8 +1,8 @@
 const chai = require("chai")
 const expect = require("chai").expect
-const server = require("../../../server.js")
+const server = require("../server.js")
 const chaiHttp = require("chai-http")
-const deliveryController = require("../../../controllers/delivery/deliverymanController.js")
+const deliveryController = require("../controllers/delivery/deliverymanController.js")
 chai.use(chaiHttp)
 
 describe('Futár útvonalak', () => {

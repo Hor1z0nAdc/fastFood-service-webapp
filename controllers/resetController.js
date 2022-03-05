@@ -4,10 +4,10 @@ const jwt = require("jsonwebtoken")
 const nodemailer = require("nodemailer")
 const { google } = require("googleapis")
 
-const CLIENT_ID = "1044933745510-rk0ptd503otlf4f34p7oq1rv01s5503b.apps.googleusercontent.com"
-const CLIENT_SECRET = "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"
+const CLIENT_ID = "1044933745510-7k8dht6a701s68lq4vl79ho71t5au8v0.apps.googleusercontent.com"
+const CLIENT_SECRET = "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"
 const REDIRECT_URL = "https://developers.google.com/oauthplayground"
-const REFRESH_TOKEN = "1//04F6U3nOnhyQKCgYIARAAGAQSNwF-L9IryG9Y-IjnfZnmJyy6LPh_Jb0UUOtqScJePRMMkdTJznCpZk6Qy9i7rHdBnrM7Z_pel1s"
+const REFRESH_TOKEN = "1//04PPfgiNxVLr6CgYIARAAGAQSNwF-L9Ir2gMKPUHlBRFArMsXFFyQkRKn4YJcPfFQFBZf9StYtkLzG-O6bZM27uKFFEY0qL3T-kE"
 const jwt_secret = "secret"
 
 const oAuth2Client = new google.auth.OAuth2( CLIENT_ID, CLIENT_SECRET, REDIRECT_URL)
@@ -36,7 +36,7 @@ async function sendMail(email, link) {
       text: `A jelszó megváltoztatásához kattintson az alábbi linkre: ${link}`
     }
 
-    const result = await transporter.sendMail(mailOptions)
+   const result = await transporter.sendMail(mailOptions)
     return result
   } 
   catch (error) {
@@ -65,16 +65,23 @@ const postReset = async (req,res) => {
 
   const secret = jwt_secret + user.password
   const token = jwt.sign(payload, secret, {expiresIn: "15m"})
-  const link = `http://localhost:3000/reset_jelszo/${user._id}/${token}`
+  //const link = `//http://localhost:3000/reset_jelszo/${user._id}/${token}`
+  const link = `https://gyorsetterem.herokuapp.com/reset_jelszo/${user._id}/${token}`
   console.log(link)
 
+  let isError = false
+
   sendMail(user.email, link).then(result => {
-    console.log("Email has been sent.")
-    req.flash("success", "Elküldtük a linket a megadott címre.")
   }).catch(error => {
     req.flash("error", "Szerver hiba. Próbálja meg később!")
+    isError = true
     console.log("Hiba: " + error.message)
   }) 
+
+  if(!isError) {
+    req.flash("success", "Elküldtük a linket a megadott címre.")
+  }
+  
   res.redirect("/elfelejtett_jelszo")
 } 
 

@@ -1,6 +1,6 @@
 const expect = require("chai").expect
 const sinon = require("sinon")
-const dateFormat = require("../../../src/middlewares/date")
+const dateFormat = require("../src/middlewares/date")
 
 describe('dátum manipuláció string formájában', () => {
     //formatDate

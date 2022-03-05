@@ -8,7 +8,7 @@
                 <th class="px-4 py-2 text-left">Név</th>
                 <th class="px-4 py-2 text-left">Email</th>
                 <th class="px-4 py-2 text-left">Regisztrálás ideje</th>
-                <th  data-testid="deleteBtn" class="px-4 py-2 text-left">Törlés</th>
+                <th class="px-4 py-2 text-left">Törlés</th>
             </tr>
         </thead>
         <tbody id="orderTableBody">
@@ -17,7 +17,7 @@
                     <td class="border px-4 py-2"><%= futár.név %></td>
                     <td class="border px-4 py-2"><%= futár.email %></td>
                     <td class="border px-4 py-2"><%= futár.createdAt %></td>
-                    <td class="border px-4 w-4"><button class="deleteDeliveryBtn" data-futár="<%= JSON.stringify(futár) %>"><img class="w-full h-full" src="images/remove.png" alt="x"></button></td>
+                    <td class="border px-4 w-4"><button data-testid="deleteBtn" class="deleteDeliveryBtn" data-futár="<%= JSON.stringify(futár) %>"><img class="w-full h-full" src="images/remove.png" alt="x"></button></td>
                 </tr>
             <% }); %>
         </tbody>

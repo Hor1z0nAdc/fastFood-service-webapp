@@ -1,13 +1,13 @@
 const chai = require("chai")
 const expect = require("chai").expect
 const chaiHttp = require("chai-http")
-const server = require("../../../server.js")
+const server = require("../server.js")
 chai.use(chaiHttp)
-const delivery = require("../../../controllers/admin/deliveryController.js")
-const order = require("../../../controllers/admin/orderController.js")
-const item = require("../../../controllers/admin/itemActionController.js")
-const Felhasználó = require("../../../models/felhasználó")
-const date = require("../../../src/middlewares/date")
+const delivery = require("../controllers/admin/deliveryController.js")
+const order = require("../controllers/admin/orderController.js")
+const item = require("../controllers/admin/itemActionController.js")
+const Felhasználó = require("../models/felhasználó")
+const date = require("../src/middlewares/date")
 
 //deliveryController.js
 describe('Admin - deliveryController', () => {
@@ -25,6 +25,17 @@ describe('Admin - deliveryController', () => {
        delivery.formatCreateAt(futárok)
        expect(futárok[0].createdAt).to.be.equal("2022-01-06")
        expect(futárok[1].createdAt).to.be.equal("2022-02-06")
+    });
+
+    //createDeliveryMan
+    it('futár létrehozása, vissza kell adnia futár objektumot - createDeliveryMan()', () => {
+         delivery.createDeliveryMan(name, email, password1).then((futár) => {
+             expect(futár).to.be.a("object")
+             expect(futár.név).to.be.eql("dummyFutár")
+             expect(futár.email).to.be.eql("dummyEmail")
+             expect(futár.beosztás).to.be.eql("futár")
+             expect(futár.jelszó).to.be.a("string")
+         })
     });
 
     //Útvonalak
@@ -90,17 +101,6 @@ describe('Admin - deliveryController', () => {
         });
     });
 
-    //createDeliveryMan
-    it('futár létrehozása, vissza kell adnia futár objektumot - createDeliveryMan()', () => {
-         delivery.createDeliveryMan(name, email, password1).then((futár) => {
-             expect(futár).to.be.a("object")
-             expect(futár.név).to.be.eql("dummyFutár")
-             expect(futár.email).to.be.eql("dummyEmail")
-             expect(futár.beosztás).to.be.eql("futár")
-             expect(futár.jelszó).to.be.a("string")
-         })
-    });
-
     //postRegister - futár
     describe('futár regisztráció', () => {
         let name = "smthName"
@@ -109,7 +109,6 @@ describe('Admin - deliveryController', () => {
         let pw2 = "12345"
         let incorrectPw1 = "12"
         
-
         it('helytelen adatok, redirectelnie kell', (done) => {
             chai.request(server) 
                 .get("/futarok")
@@ -120,23 +119,24 @@ describe('Admin - deliveryController', () => {
                 done()
         });
     });
-})
+})    
+
+
 
 //itemActionController.js
 describe('Admin - itemActionController', () => {
-       let név = "dummyName"
-       let leírás = " Lorem ipsum"
-       let error = "dummyError"
-       let correctár = 5
-       let NanÁr = "sorry"
-       let negativeÁr = -1
-
-    beforeEach(() => {
-        req = { errors: {}, flash: function (type, text) { this.errors[type] = text }}
-    });
+    let név = "dummyName"
+    let leírás = " Lorem ipsum"
+    let error = "dummyError"
+    let correctár = 5
+    let NanÁr = "sorry"
+    let negativeÁr = -1
+    let req
 
     //hibakezelés()
     it('a req-be be kell jegyeznie a hibát - hibakezelés()', () => {
+        req = { errors: {}, flash: function (type, text) { this.errors[type] = text }}
+
         item.hibakezelés(név, leírás, error, req)
 
         expect(req.errors.árError).to.be.eql(error)
@@ -144,6 +144,17 @@ describe('Admin - itemActionController', () => {
         expect(req.errors.leírás).to.be.eql(leírás)
     });
 
+    //createImageName()
+    it('helyes formában kell megadnia a kép nevét () - createImageName()', () => {
+        let kép1 = "képecske.jpg"
+        let currentDate = item.createImageName("2022/02/28", kép1)
+
+        expect(currentDate).to.be.eql("képecske20220228.jpg")
+      
+    });
+
+
+    
     //incorrectData()
     describe('megadot adatok ellenőrzése - incorrectData()', () => {
         it('helyes adatok megadva, false-t kell visszaadnia', () => {
@@ -165,14 +176,39 @@ describe('Admin - itemActionController', () => {
         });
     })
 
-    //createImageName()
-    it('helyes formában kell megadnia a kép nevét () - createImageName()', () => {
-        let kép1 = "képecske.jpg"
-        let currentDate = item.createImageName("2022/02/28", kép1)
+    // //updateTermék()
+    // it('vissza kell adnia a frissített terméket - updateTermék ', (done) => {
+    //     const név = "dummyNév"
+    //     const ár = "1"
+    //     const kategória = "dummyCategory"
+    //     const newKép = "dummyKép"
+    //     const leírás = "Lorem ipsum"
+    //     const termékId = "5"
 
-        expect(currentDate).to.be.eql("képecske20220228.jpg")
-      
-    });
+    //     let Termék = { 
+    //                       findOneAndUpdate: (obj1, obj2, obj3) => { 
+    //                           return new Promise(resolve => {
+    //                               let updated = {
+    //                                   név: név,
+    //                                   ár: ár,
+    //                                   kategória: kategória,
+    //                                   leírás: leírás,
+    //                                   kép: newKép
+    //                               }
+    //                               resolve(updated)
+    //                           })
+    //                       }
+    //                    }
+
+    //     item.updateTermék(név, ár, kategória, leírás, newKép, termékId, Termék).then(result => {
+    //         expect(result).to.be.a("object")
+    //         expect(result.név).to.be.eql("dummyNév")
+    //         expect(result.ár).to.be.eql("1")
+    //         expect(result.kategória).to.be.eql("dummyCategory")
+    //         expect(result.kép).to.be.eql("dummyKép")
+    //         done()
+    //     })
+    // });
 
     //determinePath()
     describe('redirect útvonal meghatározása - redirectPath()', () => {
@@ -193,41 +229,9 @@ describe('Admin - itemActionController', () => {
             expect(res).to.be.eql("/dummy")
         });
     });
-
-    //updateTermék()
-    it('vissza kell adnia a frissített terméket - updateTermék ', async () => {
-        const név = "dummyNév"
-        const ár = "1"
-        const kategória = "dummyCategory"
-        const newKép = "dummyKép"
-        const leírás = "Lorem ipsum"
-        const termékId = "5"
-
-        let Termék = { 
-                          findOneAndUpdate: (obj1, obj2, obj3) => { 
-                              return new Promise(resolve => {
-                                  let updated = {
-                                      név: név,
-                                      ár: ár,
-                                      kategória: kategória,
-                                      leírás: leírás,
-                                      kép: newKép
-                                  }
-                                  resolve(updated)
-                              })
-                          }
-                       }
-
-        let result = await item.updateTermék(név, ár, kategória, leírás, newKép, termékId, Termék)
-
-        expect(result).to.be.a("object")
-        expect(result.név).to.be.eql("dummyNév")
-        expect(result.ár).to.be.eql("1")
-        expect(result.kategória).to.be.eql("dummyCategory")
-        expect(result.kép).to.be.eql("dummyKép")
-        
-    });
 })
+
+
 
 //admin - ordercontroller.js
 describe('Admin - ordercontroller', () => {

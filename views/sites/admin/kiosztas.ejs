@@ -33,7 +33,7 @@
         </table> 
         <div class="ml-16">
             <label class="font-semibold">Futár kiválasztása</label>
-            <select name="futár" class="border-2 border-black pl-2 pr-2 ml-4">
+            <select data-testid="selectBtn" name="futár" class="border-2 border-black pl-2 pr-2 ml-4">
                 <% futárok.forEach(futár => { %>
                    <option value=<%= futár._id %>><%= futár.név %></option>
                 <% }); %>
@@ -43,7 +43,7 @@
     </form>
     <h1 class="font-bold text-lg mt-8">Jelenlegi hozzárendelés</h1>
     <% if(futárHozzárendelés.length > 0) {  %>
-    <section class="flex flex-wrap gap-x-10 gap-y-10 mt-4 border-gray-400 border-2 p-2">
+    <section id="hozzarendeles" class="flex flex-wrap gap-x-10 gap-y-10 mt-4 border-gray-400 border-2 p-2">
         <% futárHozzárendelés.forEach(futár => { let i = 0 %>
             <div class="w-full">
                 <div class="w-full lg:w-1/3">

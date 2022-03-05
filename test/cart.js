@@ -1,5 +1,5 @@
 const expect = require("chai").expect
-const cartAction = require("../../../src/functions/cartActions.js")
+const cartAction = require("../src/functions/cartActions.js")
 
 //createCart
 describe('Kosár létrehozása - createCart() függvény tesztelése', () => {

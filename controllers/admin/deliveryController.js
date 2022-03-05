@@ -35,13 +35,16 @@ const postRegister = async (req, res) => {
     const {name, email, password1, password2} = req.body
 
     //Megadott adatok validációja
-    accountF.registerValidation(name, email, password1, password2, req)
+    let isError = accountF.registerValidation(name, email, password1, password2, req)
+    if(isError) {
+        return res.redirect("/futarok/register") 
+    }
 
     //Foglalt email ellenőrzés
     Felhasználó.exists({email}, (error, result) => {
         if(result) {
            accountF.takenEmail(name, req)
-           return res.redirect("/futarok/regisztracio")
+           return res.redirect("/futarok/register")
         }
         
         //Ha minden jó, felhasználó létrehozása és mentése

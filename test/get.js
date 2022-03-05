@@ -1,7 +1,7 @@
 const chai = require("chai")
 const expect = require("chai").expect
 const chaiHttp = require("chai-http")
-const server = require("../../../server.js")
+const server = require("../server.js")
 chai.use(chaiHttp)
 
 describe("termék útvonalak", () => {
