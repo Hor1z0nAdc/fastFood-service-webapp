@@ -14,7 +14,7 @@ const Emitter = require("events")
 const multer = require("multer")
 const { urlencoded } = require("express")
 const app = express()
-const connectionString = "mongodb+srv://Hor1z0n:Hor1z0n981217@gyorsetterem.cjrgz.mongodb.net/gyorsetterem?retryWrites=true&w=majority"
+const connectionString = "mongodb://localhost:27017/gyorsétterem"
 const PORT = process.env.PORT || 3000
 
 //Emitter
@@ -80,11 +80,13 @@ app.use("/futar", express.static('public'))
 app.use(mainRoute)
 
 //Database
+//connectionString
 //local connection - mongodb://localhost:27017/gyorsétterem
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (err) => {
-    if(!err) {console.log("Connected to database")}
-    else {console.log(`Error:${err}`)}
-})
+
+mongoose.connect(connectionString) 
+   .then(success => console.log("Connected to database"))
+   .catch(error => console.log(`Error:${err}`))
+
 
 //Startig server
 const server = app.listen(PORT, () =>{ console.log(`running on port ${PORT}`)} )
